@@ -1,5 +1,5 @@
-List of things to try(related to Detection Engineering)
-    [x] Collect logs from windows and linux system.
+***List of things to try(related to Detection Engineering)***
+    [X]  Collect logs from windows and linux system.
         [X] Linux
         [X] Windows
     [ ] Parse logs
