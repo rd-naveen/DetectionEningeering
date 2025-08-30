@@ -1,0 +1,10 @@
+Manually creating and editing the configuration files takes more time, Hence, we'll try to create a python script with uses excel or some other simple format to generate the fluentd configurations. 
+
+Excel tabs:
+
+    Source
+    Filters
+    Matchers
+    
+
+
