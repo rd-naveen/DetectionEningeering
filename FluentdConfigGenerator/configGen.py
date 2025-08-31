@@ -37,7 +37,7 @@ all_bash_script = "#/bin/bash\n\n"
 for temp_file in pd_sources["pos_file"].values.tolist():
     temp_bash_string = f"sudo touch {temp_file}\n" +\
         f"sudo chown {linux_user_name} {temp_file}\n" +\
-        f"sudo chmod o+w {linux_user_name} {temp_file}\n\n"
+        f"sudo chmod o+w {temp_file}\n\n"
     all_bash_script += temp_bash_string
 # print(all_bash_script)
 with open(linux_bash_script_name,"w") as file: 

@@ -6,5 +6,14 @@ Excel tabs:
     Filters
     Matchers
     
+Try the FluentdConfigGenerate scripts available in this repo for generating automatic source, filters and matchers definitions. 
+
+Note: This script will only able to accept inputs for tail input, json parser, and record_transformation filters, and Opensearch matchers. We didn't set any validations for accepting only these or anything around it. Users could also try to use the scripts partially, by editing the python script to genrate any part of the fluentd flow.
+
+* Step 1: Open the Fluentd_Configuration.xlsx file and edit the Source, Filter and Matchers sheets
+
+* Step 2: Execute the python script named configGen.py
+
+* Step 3: use the generated fluentd.conf and make_temp_file.sh, however you see it fit.
 
 
