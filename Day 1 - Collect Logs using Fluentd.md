@@ -206,14 +206,27 @@
     or forward the event to another fluentd device. 
 
         ** on device which sends the data.
-        <match winevt.raw>
+        <source>
+            @type windows_eventlog2
+            channels ["security","system","application","Microsoft-Windows-Sysmon/Operational"]
+            read_existing_events false
+            tag winevt.raw
+            # rate_limit 200
+            <storage>
+                @type local
+                persistent true
+                path C:\opt\fluent\winlog.json
+            </storage>
+        </source>
+
+        <match winevt.*>
             @type forward
             send_timeout 60s
             recover_wait 10s
             hard_timeout 60s
             <server>
                 name coreserver
-                host coreserver
+                host 10.10.10.100
                 port 24224
                 weight 60
             </server>
@@ -221,16 +234,25 @@
 
         ** on device which receives the data.
         ```
-            <source>
+        <source>
             @type forward
             port 24224
             bind "0.0.0.0"
-            tag "core_server_forwarder"
+            tag "events.security.windows"
         </source>
         ```
 
-    NOTE: As of now forwading windows events to another node is not working, getting below warning
+    NOTE: When used hostname instead of IP(IPv4), we are not able to recive the logs in the receiver fluentd, possibly because IPv6 is used.
+
+
+    Note: when forwarding the logs to remote fluentd device, the tag is  "winevt.raw", but during the receving end, we modified it to "events.security.windows". We could also use the tag from the source fluentd to make new tag.
     
     ```
+    // when used hostname
     2025-08-26 18:32:15 +0530 [warn]: #0 detached forwarding server 'coreserver' host="coreserver" port=24224 phi=16.010400375908784 phi_threshold=16
+    ```
+
+    ```
+    // when used ipv6
+    2025-09-01 06:38:25 -0700 [warn]: #0 detached forwarding server 'coreserver' host="fe80::215:5dff:fe01:2205" port=24224 phi=16.02555785288765 phi_threshold=16
     ```

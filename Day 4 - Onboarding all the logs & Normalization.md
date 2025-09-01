@@ -12,8 +12,8 @@ Before we start normalizing events, Let's make sure we have below log sources co
     Aapche2 - Done
     Suricata - Done
     Zeek/Bro - Done
-    Windows Security Events
-    Windows Sysmon
+    Windows Security Events - Done
+    Windows Sysmon - Done
     Linux Auth
         /var/log/faillog
         /var/log/auth.log
