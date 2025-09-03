@@ -35,23 +35,19 @@ Clone latest csr from git
 Create a new configuration file from the template, provided with git repo
 `sudo mv /usr/share/modsecurity-crs/crs-setup.conf.example /usr/share/modsecurity-crs/crs-setup.conf`
 
-Rename the default exclusion file
-`sudo mv /usr/share/modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf.example /usr/share/modsecurity-crs/rules/REQUEST-900-EXCLUSION-RULES-BEFORE-CRS.conf`
 
-
-Enabling ModSecurity in Apache2
+Enabling ModSecurity in Apache2 (`available` config files only)
 
 add the below lines in the `sudo nano /etc/apache2/mods-available/security2.conf`
 ```
-IncludeOptional /usr/share/modsecurity-crs/crs-setup.conf
-IncludeOptional /usr/share/modsecurity-crs/rules/*.conf
+        IncludeOptional /etc/modsecurity/*.conf
+        IncludeOptional /usr/share/modsecurity-crs/crs-setup.conf
+        IncludeOptional /usr/share/modsecurity-crs/rules/*.conf
 ```
 
-#IncludeOptional /usr/share/modsecurity-crs/*.conf
-#IncludeOptional /usr/share/modsecurity-crs/activated_rules/*.conf
+Open the Apache2 sites available configuration file, and add `SecRuleEngine On` in the config file, if we don't have any custom site files, default site file is available `/etc/apache2/sites-available`
 
-Open the Apache2 sites configuration file, and add `SecRuleEngine On` in the config file, if we don't have any custom site files, default site file is available `/etc/apache2/sites-enabled`
-
+Test the configuration using ` sudo apachectl configtest`
 
 Now restart the Apache2 service using `sudo systemctl restart apache2` and verify the service using `sudo systemctl status apache2`
 
@@ -60,4 +56,9 @@ Testing the ModSecurity rules:
 We could use the `nikto` or any other opensource tools to scan the website and we should get the 403 responses, and the same should be logged in the  
 
 
-### This setup is not working, we need to work more on this.. duplicate id's....
+curl "http://coreserver/?foo=/etc/passwd&bar=/bin/sh" -I
+
+At the same time, we should see the logs in the `sudo tail -f /var/log/apache2/modsec_audit.log`
+
+
+In next activity, we'll try to feed this data into Opensearch..
