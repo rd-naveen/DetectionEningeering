@@ -33,7 +33,7 @@ Note: I have already installed the opensearch and opensearch-dashboards in the u
 
 Go to `Internal users` section located at `http://coreserver:5601/app/security-dashboards-plugin#/users` and create a user named 'fluentd_sender' and with very very good password.
 
-![alt text](image-1.png)
+![alt text](images/image-1.png)
 
 and Go to Roles `http://coreserver:5601/app/security-dashboards-plugin#/roles`
 
@@ -44,7 +44,7 @@ and create a custom role with below permissions
 4) Index Permission "crud", "create_index"
 
 Once role is created it should look like this
-![alt text](image.png)
+![alt text](images/image.png)
 
 and In the `fluentd.conf` we'll make little chage to make sure if our account is working or not. 
 
