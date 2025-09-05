@@ -33,6 +33,6 @@
 | Apache2 | Application |Done
 | Suricata | Security | Done
 | Windows | Operating System | Done
-| Linux | Opearting System| -
-| ModSecurity | Security| -
-| Firewall |Security| -
+| Linux | Opearting System| Done
+| ModSecurity | Security| Done
+| Sysmon |Security| Done 
