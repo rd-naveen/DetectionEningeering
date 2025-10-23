@@ -32,7 +32,20 @@
 | Zeek  | Network | Done
 | Apache2 | Application |Done
 | Suricata | Security | Done
-| Windows | Operating System | Done
-| Linux | Opearting System| Done
+| Windows-System | Operating System | Done
+| Windows-Security | Operating System | Done
+| Windows-Application | Operating System | Done
+| Windows-Scheduling | Operating System | Done
+| Linux-Auth | Opearting System| Done
+| Linux-auditd | Opearting System| Done
 | ModSecurity | Security| Done
 | Sysmon |Security| Done 
+
+
+## Lab Setup
+
+### Network Traffic Flow
+![alt text](.\images\traffic-flow.png)
+
+### Events Flow
+![alt text](.\images\events-flow.png)
