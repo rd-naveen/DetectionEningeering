@@ -256,7 +256,7 @@
     // when used ipv6
     2025-09-01 06:38:25 -0700 [warn]: #0 detached forwarding server 'coreserver' host="fe80::215:5dff:fe01:2205" port=24224 phi=16.02555785288765 phi_threshold=16
     ```
-Linux logs onboarding
+### Linux logs onboarding
 
 * Linux Auth
     ```
@@ -332,7 +332,7 @@ Before we start normalizing events, Let's make sure we have below log sources co
         /var/log/auth.log
         /var/log/apt/term.log or /var/log/dpkg.log
 
-### Input Sources
+### Zeek logs onboarding
     ```
     <source>
             @type tail
@@ -408,7 +408,7 @@ Before we start normalizing events, Let's make sure we have below log sources co
 ### Known Issues:
 For some logs, if the transforming fiels is not available in the logs, it's throwing error and also adding null values to that field. It might generate noise. Hence we need to find a alternate way to safely add this. or create a transformer for each of the records. 
 
-
+### Onboarding modsecurity logs 
 By default Modsecurity does not log in JSON format, to make it work we need to modify the `modsecurity.conf` file
 
 `sudo nano /etc/modsecurity/modsecurity.conf`
@@ -421,20 +421,19 @@ The output file is not usually readable by others, hence we need to change the p
 `sudo chmod o+r  /var/log/apache2/modsec_audit.log`
 
 Add the below lines in the fluentd.conf file
-    ```
-    <source>
-        @type tail
-        path /var/log/apache2/modsec_audit.log
-        #pos_file /var/log/suricata/eve-alerts.json.pos
-        <parse>
-            @type json
-        </parse>
-        path_key  tailed_path
-        tag events.security.modsecurity
-        emit_unmatched_lines true
-    </source>
-
-    ```
+```
+<source>
+    @type tail
+    path /var/log/apache2/modsec_audit.log
+    #pos_file /var/log/suricata/eve-alerts.json.pos
+    <parse>
+        @type json
+    </parse>
+    path_key  tailed_path
+    tag events.security.modsecurity
+    emit_unmatched_lines true
+</source>
+```
 
 
 To test if the modsecurity is working correctly or not, try `curl "http://coreserver/?foo=/etc/passwd&bar=/bin/sh" -I`
